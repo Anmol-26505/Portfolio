@@ -4,8 +4,8 @@ import Logo from '../assets/logo.png'
 
 const Navbar = () => {
   return (
-    <div  >
-      <div className='bg-black p-5 flex justify-between '>
+    <div  className='sticky top-0 z-50'>
+      <div className='bg-black p-5 flex justify-between  '>
       <div>
         <img
   src={Logo}
