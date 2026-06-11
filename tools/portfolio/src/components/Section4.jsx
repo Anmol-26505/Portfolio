@@ -24,7 +24,7 @@ const Section4 = () => {
       </div>
       <div>
         <p className='font-serif text-white mt-10 text-center italic'>"Even if i Lose everything ,I will take a break fix my crown and conquer it once again because it is not me it is within me" <br/></p>
-        <p className='font-serif text-white  text-right mr-50'> - Anmol</p>
+        <p className='font-serif text-white  text-right mr-50'> - Anmol ❤️</p>
       </div>
       <div>
        <footer className="bg-black text-white py-15">
