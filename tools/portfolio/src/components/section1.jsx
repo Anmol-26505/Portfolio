@@ -2,6 +2,7 @@ import React from "react";
 import MainPic from "../assets/mypic.PNG";
 import { TypeAnimation } from "react-type-animation";
 
+
 const Section1 = () => {
   return (
     <div className="flex h-screen bg-black gap-20 ">

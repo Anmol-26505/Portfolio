@@ -8,17 +8,17 @@ const Section4 = () => {
         <h1 className='text-5xl  text-cyan-900  text-center font-bold py-15'>Behind the Developer , Meet the Person❤️ </h1>
       </div>
       <div>
-        <p className=' text-cyan-900 ml-20'>
+        <p className=' text-cyan-900 ml-20 p-3'>
             Behind every line of code is a story of curiosity and growth.
         </p>
       </div>
       <div>
-        <p className=' text-cyan-900 ml-20 mt-2'>
+        <p className=' text-cyan-900 ml-20 mt-2 p-3'>
            I began my journey by exploring C++ and understanding the logic behind software. With time, I discovered my interest in web development and the art of creating seamless digital experiences.
         </p>
       </div>
         <div>
-        <p className=' text-cyan-900 ml-20 mt-2'>
+        <p className=' text-cyan-900 ml-20 mt-2 p-3'>
            Today, I spend my time building projects, learning new technologies, solving programming challenges, and pushing myself to become a better developer every day.
         </p>
       </div>
@@ -43,7 +43,7 @@ const Section4 = () => {
           Feel free to connect with me and explore my work.
         </p>
 
-        {/* Social Icons */}
+        
         <div className="flex gap-8 text-4xl mt-8">
 
           <a
@@ -75,7 +75,7 @@ const Section4 = () => {
 
         </div>
 
-        {/* Copyright */}
+        
         <p className="text-gray-500 mt-10 text-sm">
           © 2026 Anmol | Designed & Developed with ❤️ using React
         </p>
