@@ -2,12 +2,11 @@ import React from "react";
 import MainPic from "../assets/mypic.PNG";
 import { TypeAnimation } from "react-type-animation";
 
-
 const Section1 = () => {
   return (
-    <div className="flex h-screen bg-black gap-20 ">
+    <div className="flex flex-col md:flex-row min-h-screen bg-black gap-5 md:gap-20 items-center justify-center">
       <div className="p-10 mt-10 ml-5">
-        <img src={MainPic} alt="" width="400px" className="rounded-2xl" />
+        <img src={MainPic} className="rounded-2xl w-[250px] md:w-[400px]" />
       </div>
       <div className="p-10 mt-10 ml-5">
         <p className="text-lg text-white font-medium">Hello, I'm</p>
@@ -25,9 +24,9 @@ const Section1 = () => {
           wrapper="span"
           speed={50}
           repeat={Infinity}
-          className="text-6xl font-bold text-cyan-900"
+          className="text-4xl md:text-6xl font-bold text-cyan-900"
         />
-        <p className="mt-4 text-xl md:text-2xl text-white">
+        <p className="mt-4 text-lg md:text-2xl text-white text-center md:text-left">
           Programmer by Passion • Traveller by Choice • Hustler by Mindset
         </p>
 

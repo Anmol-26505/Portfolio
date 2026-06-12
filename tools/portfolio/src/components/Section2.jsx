@@ -41,9 +41,9 @@ const Section2 = () => {
 
   return (
     <section className="bg-black min-h-screen flex flex-col items-center justify-center">
-      <h1 className="text-5xl font-bold text-cyan-400 mb-14">Development Arsenal {"</>"}</h1>
+      <h1 className="text-3xl md:text-5xl font-bold text-cyan-400 mb-14">Development Arsenal {"</>"}</h1>
 
-      <div className="w-250 border border-cyan-500 rounded-xl overflow-hidden shadow-[0_0_25px_rgba(6,182,212,0.3)]">
+      <div className="w-[90%] md:w-[1000px] border border-cyan-500 rounded-xl overflow-hidden shadow-[0_0_25px_rgba(6,182,212,0.3)]">
         <div className="bg-zinc-900 p-3 flex gap-3">
           <div className="w-3 h-3 bg-red-500 rounded-full"></div>
           <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
@@ -68,13 +68,13 @@ const Section2 = () => {
           />
         </div>
 
-        <div className="grid grid-cols-4 gap-3 mt-10">
+        <div className=" grid grid-cols-2 md:grid-cols-4 gap-5  mt-10">
           {skills.map((skill, index) => (
             <div
               key={index}
               className="flex flex-col items-center text-cyan-400"
             >
-              <div className="text-6xl">{skill.icon}</div>
+              <div className="text-4xl md:text-6xl">{skill.icon}</div>
 
               <p className="mt-2">{skill.name}</p>
             </div>

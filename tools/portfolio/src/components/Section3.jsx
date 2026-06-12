@@ -4,9 +4,9 @@ import ProjectCard from "./ProjectCard";
 
 const Section3 = () => {
   return (
-    <section className="min-h-screen bg-black px-8 py-20">
+    <section className="min-h-screen bg-black px-4 md:px-8 py-20">
 
-      <h1 className="text-5xl font-bold text-cyan-400 text-center">
+      <h1 className="text-3xl md:text-5xl font-bold text-cyan-400 text-center">
         The Creations of the Codes
       </h1>
 
