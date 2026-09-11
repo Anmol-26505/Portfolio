@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "npm --prefix tools/portfolio run dev",
+    "build": "npm --prefix tools/portfolio run build",
+    "preview": "npm --prefix tools/portfolio run preview"
   },
   "dependencies": {
     "framer-motion": "^12.0.0",
