@@ -1,12 +1,10 @@
 import { useEffect } from "react";
-import { FaTimes, FaGithub, FaExternalLinkAlt, FaLayerGroup, FaCheckCircle, FaChartLine } from "react-icons/fa";
+import { FaTimes, FaGithub, FaExternalLinkAlt, FaCheckCircle } from "react-icons/fa";
 import { TbBinaryTree } from "react-icons/tb";
-import { playChirp, playClick } from "../utils/sound";
 
 const ProjectDetailModal = ({ project, isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen) {
-      playChirp();
       const handleKeyDown = (e) => {
         if (e.key === "Escape") onClose();
       };
@@ -23,186 +21,150 @@ const ProjectDetailModal = ({ project, isOpen, onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/80 backdrop-blur-md animate-fade-in"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-stone-900/60 dark:bg-black/80 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl bg-zinc-950 border border-zinc-800 shadow-2xl text-zinc-100 p-6 sm:p-8 space-y-6"
+        className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white dark:bg-zinc-950 border border-stone-200 dark:border-zinc-800 shadow-2xl text-stone-900 dark:text-zinc-100 p-6 sm:p-8 space-y-6"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Top Bar with Status and Close Button */}
-        <div className="flex items-center justify-between pb-4 border-b border-zinc-900">
+        {/* Header */}
+        <div className="flex items-center justify-between pb-4 border-b border-stone-100 dark:border-zinc-800">
           <div className="flex items-center gap-2">
-            <span className="px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono text-xs uppercase tracking-wider">
+            <span className="px-2.5 py-1 rounded-full bg-orange-50 dark:bg-orange-950/60 border border-orange-200/70 dark:border-orange-800/60 text-orange-700 dark:text-orange-300 font-mono text-xs uppercase tracking-wider">
               {project.category}
             </span>
-            <span className="text-xs font-mono text-zinc-400">
-              ID // 0{project.id} • {project.year}
+            <span className="text-xs font-mono text-stone-400 dark:text-zinc-500">
+              {project.year}
             </span>
           </div>
 
           <button
-            onClick={() => {
-              playClick();
-              onClose();
-            }}
-            className="p-2 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition-colors cursor-pointer"
+            onClick={onClose}
+            className="p-2 rounded-xl bg-stone-100 dark:bg-zinc-900 hover:bg-stone-200 dark:hover:bg-zinc-800 text-stone-600 dark:text-zinc-400 hover:text-stone-950 dark:hover:text-white transition-colors cursor-pointer"
             aria-label="Close modal"
           >
-            <FaTimes size={16} />
+            <FaTimes size={15} />
           </button>
         </div>
 
-        {/* Header Content */}
+        {/* Title & Tagline */}
         <div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-stone-900 dark:text-white tracking-tight">
             {project.title}
           </h2>
-          <p className="text-sm sm:text-base font-mono text-cyan-400 mt-1">
+          <p className="text-sm sm:text-base font-medium text-orange-600 dark:text-orange-400 mt-1">
             {project.tagline}
           </p>
-          <p className="text-zinc-400 text-sm mt-3 leading-relaxed">
+          <p className="text-stone-600 dark:text-zinc-400 text-sm mt-3 leading-relaxed">
             {project.description}
           </p>
         </div>
 
-        {/* Benchmarks Strip if available */}
-        {project.architecture?.metrics && (
-          <div className="grid grid-cols-3 gap-3 p-4 rounded-xl bg-zinc-900/60 border border-zinc-800/80">
-            {project.architecture.metrics.map((m, i) => (
-              <div key={i} className="text-center">
-                <p className="text-lg sm:text-xl font-bold font-mono text-white">
-                  {m.value}
-                </p>
-                <p className="text-[10px] sm:text-xs font-mono uppercase text-zinc-400 mt-0.5">
-                  {m.label}
-                </p>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Algorithmic Complexity Specification */}
+        {/* Complexity Profile */}
         {project.complexity && (
-          <div className="p-4 rounded-xl bg-cyan-950/20 border border-cyan-500/25 space-y-2">
-            <div className="flex items-center gap-2 text-cyan-400 text-xs font-mono font-semibold uppercase tracking-wider">
-              <TbBinaryTree size={16} />
+          <div className="p-4 rounded-xl bg-stone-50 dark:bg-zinc-900 border border-stone-200/80 dark:border-zinc-800">
+            <div className="flex items-center gap-2 text-xs font-mono text-stone-800 dark:text-zinc-200 font-semibold mb-2">
+              <TbBinaryTree className="text-orange-600 dark:text-orange-400 text-base" />
               <span>Computational Complexity Profile</span>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
-              <div className="bg-black/40 p-2.5 rounded-lg border border-cyan-500/20">
-                <span className="text-zinc-400">Time Complexity: </span>
-                <span className="text-cyan-300 font-semibold">{project.complexity.time}</span>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mono">
+              <div className="bg-white dark:bg-zinc-950 p-2.5 rounded-lg border border-stone-200/60 dark:border-zinc-800">
+                <span className="text-stone-400 dark:text-zinc-500 block text-[10px] uppercase">Time Complexity</span>
+                <span className="text-stone-800 dark:text-zinc-200 font-medium">{project.complexity.time}</span>
               </div>
-              <div className="bg-black/40 p-2.5 rounded-lg border border-cyan-500/20">
-                <span className="text-zinc-400">Space Complexity: </span>
-                <span className="text-cyan-300 font-semibold">{project.complexity.space}</span>
+              <div className="bg-white dark:bg-zinc-950 p-2.5 rounded-lg border border-stone-200/60 dark:border-zinc-800">
+                <span className="text-stone-400 dark:text-zinc-500 block text-[10px] uppercase">Space Complexity</span>
+                <span className="text-stone-800 dark:text-zinc-200 font-medium">{project.complexity.space}</span>
               </div>
             </div>
           </div>
         )}
 
-        {/* Architecture Overview */}
+        {/* Architecture Breakdown */}
         {project.architecture && (
           <div className="space-y-4">
             <div>
-              <h3 className="text-sm font-mono uppercase tracking-wider text-zinc-300 flex items-center gap-2 mb-2">
-                <FaLayerGroup className="text-cyan-400" />
-                <span>System Architecture & Pipeline</span>
-              </h3>
-              <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed bg-zinc-900/40 p-3.5 rounded-xl border border-zinc-800/60">
+              <h4 className="text-xs font-mono text-stone-500 dark:text-zinc-400 uppercase tracking-wider mb-2">
+                System Architecture Overview
+              </h4>
+              <p className="text-stone-700 dark:text-zinc-300 text-xs sm:text-sm leading-relaxed bg-stone-50 dark:bg-zinc-900 p-3.5 rounded-xl border border-stone-200/70 dark:border-zinc-800">
                 {project.architecture.overview}
               </p>
             </div>
 
-            {/* Subsystems */}
-            {project.architecture.components && (
-              <div>
-                <h4 className="text-xs font-mono uppercase text-zinc-400 mb-2">
-                  Key Subsystems
-                </h4>
-                <div className="space-y-1.5">
-                  {project.architecture.components.map((comp, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-start gap-2.5 text-xs text-zinc-300 font-mono"
-                    >
-                      <span className="text-cyan-400 font-bold mt-0.5">▸</span>
-                      <span>{comp}</span>
-                    </div>
-                  ))}
-                </div>
+            {/* Core Subsystems */}
+            <div>
+              <h4 className="text-xs font-mono text-stone-500 dark:text-zinc-400 uppercase tracking-wider mb-2">
+                Core Subsystems & Implementation
+              </h4>
+              <div className="space-y-1.5">
+                {project.architecture.components.map((c, i) => (
+                  <div key={i} className="flex items-start gap-2 text-xs sm:text-sm text-stone-700 dark:text-zinc-300">
+                    <FaCheckCircle className="text-emerald-500 text-xs mt-1 flex-shrink-0" />
+                    <span>{c}</span>
+                  </div>
+                ))}
               </div>
-            )}
+            </div>
 
-            {/* Key Engineering Challenges Solved */}
-            {project.architecture.engineeringChallenges && (
-              <div>
-                <h4 className="text-xs font-mono uppercase text-zinc-400 mb-2">
-                  Engineering Breakthroughs & Trade-offs
-                </h4>
-                <div className="space-y-2">
-                  {project.architecture.engineeringChallenges.map((challenge, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-start gap-2.5 text-xs sm:text-sm text-zinc-300 bg-zinc-900/40 p-3 rounded-lg border border-zinc-900"
-                    >
-                      <FaCheckCircle className="text-emerald-400 flex-shrink-0 mt-1 text-xs" />
-                      <span>{challenge}</span>
-                    </div>
-                  ))}
-                </div>
+            {/* Engineering Metrics */}
+            {project.architecture.metrics && (
+              <div className="grid grid-cols-3 gap-3 pt-2">
+                {project.architecture.metrics.map((m, i) => (
+                  <div key={i} className="text-center p-3 rounded-xl bg-stone-50 dark:bg-zinc-900 border border-stone-200/70 dark:border-zinc-800">
+                    <span className="block text-base sm:text-xl font-bold font-mono text-stone-900 dark:text-white">
+                      {m.value}
+                    </span>
+                    <span className="block text-[10px] sm:text-xs text-stone-500 dark:text-zinc-400 uppercase mt-0.5">
+                      {m.label}
+                    </span>
+                  </div>
+                ))}
               </div>
             )}
           </div>
         )}
 
-        {/* Tech Stack Pills */}
+        {/* Tech Stack Chips */}
         <div>
-          <h4 className="text-xs font-mono uppercase text-zinc-400 mb-2">
-            Technologies & Tools
+          <h4 className="text-xs font-mono text-stone-500 dark:text-zinc-400 uppercase tracking-wider mb-2">
+            Technology Stack
           </h4>
           <div className="flex flex-wrap gap-2">
-            {project.tech.map((t, i) => (
+            {project.tech.map((item, index) => (
               <span
-                key={i}
-                className="px-2.5 py-1 rounded-md bg-zinc-900 border border-zinc-800 text-zinc-300 text-xs font-mono"
+                key={index}
+                className="px-2.5 py-1 rounded-lg bg-stone-100 dark:bg-zinc-900 border border-stone-200 dark:border-zinc-800 text-stone-800 dark:text-zinc-200 text-xs font-mono"
               >
-                {t}
+                {item}
               </span>
             ))}
           </div>
         </div>
 
-        {/* Modal Footer CTAs */}
-        <div className="flex items-center gap-3 pt-4 border-t border-zinc-900">
-          {project.github ? (
+        {/* Modal Actions */}
+        <div className="pt-4 border-t border-stone-100 dark:border-zinc-800 flex items-center justify-end gap-3">
+          {project.github && (
             <a
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={playClick}
-              className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 hover:border-zinc-700 text-white text-xs sm:text-sm font-medium transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-stone-100 dark:bg-zinc-900 hover:bg-stone-200 dark:hover:bg-zinc-800 text-stone-800 dark:text-zinc-200 text-xs font-medium transition-colors"
             >
-              <FaGithub />
-              <span>Inspect Repository</span>
+              <FaGithub size={14} />
+              <span>View Source Code</span>
             </a>
-          ) : (
-            <div className="flex-1 text-center py-3 px-4 rounded-xl bg-zinc-900/40 border border-zinc-800/40 text-zinc-400 text-xs font-mono">
-              Proprietary / In Development
-            </div>
           )}
-
           {project.live && (
             <a
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={playClick}
-              className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-black text-xs sm:text-sm font-semibold transition-colors cursor-pointer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-stone-900 dark:bg-white hover:bg-stone-800 dark:hover:bg-zinc-200 text-white dark:text-zinc-950 text-xs font-semibold transition-colors shadow-xs"
             >
-              <FaExternalLinkAlt className="text-xs" />
-              <span>Launch Live System</span>
+              <FaExternalLinkAlt size={12} />
+              <span>Launch Live App</span>
             </a>
           )}
         </div>

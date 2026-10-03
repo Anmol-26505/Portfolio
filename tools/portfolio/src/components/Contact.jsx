@@ -5,14 +5,14 @@ import {
   FaCheck,
   FaGithub,
   FaLinkedin,
-  FaInstagram,
   FaPaperPlane,
   FaCheckCircle,
-  FaTerminal,
+  FaDownload,
+  FaMapMarkerAlt,
+  FaClock,
 } from "react-icons/fa";
-import { playClick, playKeypress, playSuccess } from "../utils/sound";
 
-const Contact = ({ onOpenTerminal }) => {
+const Contact = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,10 +24,9 @@ const Contact = ({ onOpenTerminal }) => {
   const [copied, setCopied] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const contactEmail = "anmolchohaan.ac.2001@gmail.com";
+  const contactEmail = "anmolchauhan.ac.26@gmail.com";
 
   const handleCopyEmail = () => {
-    playSuccess();
     navigator.clipboard.writeText(contactEmail);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
@@ -47,7 +46,6 @@ const Contact = ({ onOpenTerminal }) => {
   };
 
   const handleChange = (e) => {
-    playKeypress();
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     if (errors[e.target.name]) {
       setErrors((prev) => ({ ...prev, [e.target.name]: "" }));
@@ -62,285 +60,223 @@ const Contact = ({ onOpenTerminal }) => {
       return;
     }
 
-    playSuccess();
-    const mailtoUrl = `mailto:${contactEmail}?subject=${encodeURIComponent(
-      `[Engineering Transmission] ${formData.subject}`
-    )}&body=${encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    )}`;
-
-    window.location.href = mailtoUrl;
     setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    }, 4000);
   };
 
   return (
-    <section id="contact" className="bg-[#050505] py-24 px-4 sm:px-6 lg:px-8 border-t border-zinc-900">
+    <section className="bg-stone-50/70 dark:bg-zinc-950/60 py-20 sm:py-28 px-4 sm:px-6 lg:px-8 border-t border-stone-200/80 dark:border-zinc-800/80 transition-colors duration-300">
       <div className="max-w-5xl mx-auto">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono uppercase tracking-wider mb-3">
-            <span>05 // Transmission</span>
+        <div className="mb-14">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-50 dark:bg-orange-950/50 border border-orange-200/70 dark:border-orange-800/60 text-orange-700 dark:text-orange-300 text-xs font-mono uppercase tracking-wider mb-3">
+            <span>05 // Contact</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            Initiate Direct Connection
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 dark:text-white tracking-tight">
+            Let's build something exceptional.
           </h2>
-          <p className="text-zinc-400 text-sm sm:text-base mt-2 max-w-xl mx-auto">
-            Open for software engineering roles, technical collaboration, and high-impact products.
+          <p className="text-stone-600 dark:text-zinc-400 text-sm sm:text-base mt-2 max-w-xl">
+            Whether you have an open engineering position, a project proposal, or wish to discuss C++ and React architecture — my inbox is open.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Left Column: Direct Info & Social Hub */}
-          <div className="lg:col-span-5 space-y-4">
-            {/* Direct Email Card */}
-            <div className="p-6 rounded-2xl bg-zinc-950 border border-zinc-800/80 shadow-lg">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 rounded-xl bg-zinc-900 border border-zinc-800 text-cyan-400 flex items-center justify-center">
-                  <FaEnvelope />
-                </div>
-                <div>
-                  <p className="text-[11px] uppercase font-mono text-zinc-400">
-                    Direct Channel
-                  </p>
-                  <a
-                    href={`mailto:${contactEmail}`}
-                    onClick={playClick}
-                    className="text-white text-sm sm:text-base font-semibold hover:text-cyan-400 transition-colors break-all"
-                  >
-                    {contactEmail}
-                  </a>
-                </div>
-              </div>
-
-              <button
-                onClick={handleCopyEmail}
-                type="button"
-                className="w-full mt-3 inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700 transition-colors text-xs font-mono cursor-pointer"
-              >
-                {copied ? (
-                  <>
-                    <FaCheck className="text-emerald-400" />
-                    <span className="text-emerald-400">Copied to Clipboard!</span>
-                  </>
-                ) : (
-                  <>
-                    <FaCopy />
-                    <span>Copy Direct Address</span>
-                  </>
-                )}
-              </button>
-            </div>
-
-            {/* Availability Status */}
-            <div className="p-6 rounded-2xl bg-zinc-950 border border-zinc-800/80 shadow-lg">
-              <div className="flex items-center gap-2.5 mb-2">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <h3 className="text-white font-semibold text-sm">
-                  Engineering Availability
-                </h3>
-              </div>
-              <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed">
-                Open for Frontend & Full-Stack engineering roles, high-performance web projects, and team scaling.
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
+          {/* Left: Quick Connect Details */}
+          <div className="lg:col-span-5 space-y-6">
+            {/* 1-Click Copy Email Card */}
+            <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-stone-200/90 dark:border-zinc-800 shadow-xs">
+              <span className="text-xs font-mono text-stone-400 dark:text-zinc-500 uppercase tracking-wider block mb-2">
+                Direct Communication
+              </span>
+              <p className="text-sm sm:text-base font-semibold text-stone-900 dark:text-white font-mono mb-4 break-all">
+                {contactEmail}
               </p>
-              <div className="mt-4 pt-3 border-t border-zinc-900 flex items-center justify-between text-xs font-mono text-zinc-400">
-                <span>⚡ Latency: &lt; 24h response</span>
-                <span className="text-emerald-400">Status: Active</span>
+              <div className="flex flex-col sm:flex-row gap-2.5">
+                <button
+                  onClick={handleCopyEmail}
+                  className="flex-1 inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-stone-900 dark:bg-white hover:bg-stone-800 dark:hover:bg-zinc-200 text-white dark:text-zinc-950 text-xs font-semibold transition-colors cursor-pointer shadow-xs"
+                >
+                  {copied ? (
+                    <>
+                      <FaCheck className="text-emerald-400 dark:text-emerald-600 text-xs" />
+                      <span>Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <FaCopy className="text-xs" />
+                      <span>Copy Email</span>
+                    </>
+                  )}
+                </button>
+
+                <a
+                  href="/Anmol_CV.pdf"
+                  download="Anmol_CV.pdf"
+                  className="inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-stone-100 dark:bg-zinc-800 hover:bg-stone-200/80 dark:hover:bg-zinc-700 text-stone-800 dark:text-zinc-200 text-xs font-semibold border border-stone-200 dark:border-zinc-700 transition-colors"
+                >
+                  <FaDownload className="text-xs" />
+                  <span>Resume</span>
+                </a>
               </div>
             </div>
 
-            {/* CLI Shortcut Hint */}
-            <div className="p-5 rounded-2xl bg-zinc-950 border border-cyan-500/20 shadow-lg flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <FaTerminal className="text-cyan-400" />
-                <span className="text-xs font-mono text-zinc-300">
-                  Prefer terminal? Run <code className="text-cyan-300 bg-zinc-900 px-1.5 py-0.5 rounded">sudo hire</code>
+            {/* Availability & Location info */}
+            <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-stone-200/90 dark:border-zinc-800 shadow-xs space-y-3.5 text-xs text-stone-600 dark:text-zinc-400">
+              <div className="flex items-center justify-between pb-2.5 border-b border-stone-100 dark:border-zinc-800">
+                <span className="font-mono text-stone-400 dark:text-zinc-500 uppercase">Role Availability</span>
+                <span className="font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                  Immediate / Full-Time
                 </span>
               </div>
-              {onOpenTerminal && (
-                <button
-                  onClick={() => {
-                    playClick();
-                    onOpenTerminal();
-                  }}
-                  className="px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 text-xs font-mono cursor-pointer hover:bg-cyan-500/30"
-                >
-                  CLI
-                </button>
-              )}
+              <div className="flex items-center justify-between pb-2.5 border-b border-stone-100 dark:border-zinc-800">
+                <span className="font-mono text-stone-400 dark:text-zinc-500 uppercase flex items-center gap-1">
+                  <FaMapMarkerAlt className="text-stone-400 dark:text-zinc-500 text-[10px]" /> Location
+                </span>
+                <span className="font-medium text-stone-800 dark:text-zinc-200">Jalandhar, Punjab, India</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="font-mono text-stone-400 dark:text-zinc-500 uppercase flex items-center gap-1">
+                  <FaClock className="text-stone-400 dark:text-zinc-500 text-[10px]" /> Timezone
+                </span>
+                <span className="font-medium text-stone-800 dark:text-zinc-200">IST (UTC +5:30)</span>
+              </div>
             </div>
 
-            {/* Social Hub */}
-            <div className="p-6 rounded-2xl bg-zinc-950 border border-zinc-800/80 shadow-lg">
-              <p className="text-[11px] uppercase font-mono text-zinc-400 mb-4">
-                Verified Socials
-              </p>
-              <div className="flex items-center gap-3">
+            {/* Social Links */}
+            <div className="p-6 rounded-2xl bg-white dark:bg-zinc-900 border border-stone-200/90 dark:border-zinc-800 shadow-xs">
+              <span className="text-xs font-mono text-stone-400 dark:text-zinc-500 uppercase tracking-wider block mb-3">
+                Profiles & Repositories
+              </span>
+              <div className="flex flex-col gap-2.5 text-xs font-medium">
                 <a
                   href="https://github.com/Anmol-26505"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="GitHub Profile"
-                  onClick={playClick}
-                  className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700 transition-colors text-xs font-mono"
+                  className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-stone-50 dark:hover:bg-zinc-800 text-stone-700 dark:text-zinc-300 hover:text-stone-950 dark:hover:text-white transition-colors"
                 >
-                  <FaGithub />
+                  <FaGithub className="text-base text-stone-800 dark:text-zinc-200" />
                   <span>GitHub</span>
                 </a>
                 <a
                   href="https://www.linkedin.com/in/anmolchauhan84/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="LinkedIn Profile"
-                  onClick={playClick}
-                  className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-700 transition-colors text-xs font-mono"
+                  className="flex items-center gap-2.5 p-2 rounded-xl hover:bg-stone-50 dark:hover:bg-zinc-800 text-stone-700 dark:text-zinc-300 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
                 >
-                  <FaLinkedin />
+                  <FaLinkedin className="text-base text-orange-600 dark:text-orange-400" />
                   <span>LinkedIn</span>
-                </a>
-                <a
-                  href="https://www.instagram.com/youknow_anmol/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Instagram Profile"
-                  onClick={playClick}
-                  className="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-pink-400 hover:border-zinc-700 transition-colors text-sm"
-                >
-                  <FaInstagram />
                 </a>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Transmission Form */}
-          <div className="lg:col-span-7 p-6 sm:p-8 rounded-2xl bg-zinc-950 border border-zinc-800/80 shadow-xl">
-            <div className="flex items-center justify-between pb-4 border-b border-zinc-900 mb-6">
-              <div>
-                <h3 className="text-lg font-bold text-white mb-0.5">
-                  Send a Direct Note
-                </h3>
-                <p className="text-zinc-400 text-xs sm:text-sm">
-                  Drop your message below to dispatch a message packet.
-                </p>
-              </div>
-              <span className="text-[10px] font-mono px-2 py-1 rounded bg-zinc-900 border border-zinc-800 text-cyan-400">
-                PORT // 443
-              </span>
+          {/* Right: Transmission Message Form */}
+          <div className="lg:col-span-7">
+            <div className="p-6 sm:p-8 rounded-2xl bg-white dark:bg-zinc-900 border border-stone-200/90 dark:border-zinc-800 shadow-xs">
+              {submitted ? (
+                <div className="text-center py-12 space-y-3">
+                  <div className="w-12 h-12 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto text-xl">
+                    <FaCheckCircle />
+                  </div>
+                  <h3 className="text-lg font-bold text-stone-900 dark:text-white">Message Transmitted!</h3>
+                  <p className="text-xs sm:text-sm text-stone-500 dark:text-zinc-400 max-w-sm mx-auto">
+                    Thank you for reaching out. I’ll review your note and get back to you shortly.
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-xs font-semibold text-stone-700 dark:text-zinc-300 mb-1.5">
+                        Your Name
+                      </label>
+                      <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="e.g. Alex Smith"
+                        className={`w-full px-3.5 py-2.5 rounded-xl bg-stone-50 dark:bg-zinc-800/80 border text-xs sm:text-sm text-stone-900 dark:text-white placeholder:text-stone-400 dark:placeholder:text-zinc-500 focus:outline-none focus:bg-white dark:focus:bg-zinc-800 focus:border-stone-400 dark:focus:border-zinc-600 transition-colors ${
+                          errors.name ? "border-rose-400 bg-rose-50/30" : "border-stone-200 dark:border-zinc-700"
+                        }`}
+                      />
+                      {errors.name && (
+                        <p className="text-rose-600 text-[11px] mt-1">{errors.name}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-semibold text-stone-700 dark:text-zinc-300 mb-1.5">
+                        Your Email
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="alex@company.com"
+                        className={`w-full px-3.5 py-2.5 rounded-xl bg-stone-50 dark:bg-zinc-800/80 border text-xs sm:text-sm text-stone-900 dark:text-white placeholder:text-stone-400 dark:placeholder:text-zinc-500 focus:outline-none focus:bg-white dark:focus:bg-zinc-800 focus:border-stone-400 dark:focus:border-zinc-600 transition-colors ${
+                          errors.email ? "border-rose-400 bg-rose-50/30" : "border-stone-200 dark:border-zinc-700"
+                        }`}
+                      />
+                      {errors.email && (
+                        <p className="text-rose-600 text-[11px] mt-1">{errors.email}</p>
+                      )}
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-stone-700 dark:text-zinc-300 mb-1.5">
+                      Subject
+                    </label>
+                    <input
+                      type="text"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      placeholder="Software Engineer Opportunity / Product Project"
+                      className={`w-full px-3.5 py-2.5 rounded-xl bg-stone-50 dark:bg-zinc-800/80 border text-xs sm:text-sm text-stone-900 dark:text-white placeholder:text-stone-400 dark:placeholder:text-zinc-500 focus:outline-none focus:bg-white dark:focus:bg-zinc-800 focus:border-stone-400 dark:focus:border-zinc-600 transition-colors ${
+                        errors.subject ? "border-rose-400 bg-rose-50/30" : "border-stone-200 dark:border-zinc-700"
+                      }`}
+                    />
+                    {errors.subject && (
+                      <p className="text-rose-600 text-[11px] mt-1">{errors.subject}</p>
+                    )}
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-stone-700 dark:text-zinc-300 mb-1.5">
+                      Message
+                    </label>
+                    <textarea
+                      rows={5}
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Hi Anmol, I’d love to discuss..."
+                      className={`w-full px-3.5 py-2.5 rounded-xl bg-stone-50 dark:bg-zinc-800/80 border text-xs sm:text-sm text-stone-900 dark:text-white placeholder:text-stone-400 dark:placeholder:text-zinc-500 focus:outline-none focus:bg-white dark:focus:bg-zinc-800 focus:border-stone-400 dark:focus:border-zinc-600 transition-colors resize-none ${
+                        errors.message ? "border-rose-400 bg-rose-50/30" : "border-stone-200 dark:border-zinc-700"
+                      }`}
+                    />
+                    {errors.message && (
+                      <p className="text-rose-600 text-[11px] mt-1">{errors.message}</p>
+                    )}
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-stone-900 dark:bg-white hover:bg-stone-800 dark:hover:bg-zinc-200 text-white dark:text-zinc-950 text-xs sm:text-sm font-semibold transition-colors shadow-xs cursor-pointer"
+                  >
+                    <FaPaperPlane className="text-xs" />
+                    <span>Send Message</span>
+                  </button>
+                </form>
+              )}
             </div>
-
-            {submitted && (
-              <div className="mb-6 p-4 rounded-xl bg-zinc-900 border border-emerald-500/40 text-xs sm:text-sm text-zinc-300 flex items-center gap-3">
-                <FaCheckCircle className="text-emerald-400 text-base flex-shrink-0" />
-                <span>
-                  Mail client launched! If it didn't open, write directly to{" "}
-                  <strong className="text-white">{contactEmail}</strong>.
-                </span>
-              </div>
-            )}
-
-            <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label
-                    htmlFor="c-name"
-                    className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1.5"
-                  >
-                    Your Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="c-name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    placeholder="e.g. Sarah Connor"
-                    className={`w-full px-4 py-2.5 rounded-xl bg-zinc-900 border text-white text-sm placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition-colors ${
-                      errors.name ? "border-red-500" : "border-zinc-800 focus:border-cyan-400"
-                    }`}
-                  />
-                  {errors.name && (
-                    <p className="mt-1 text-xs text-red-400">{errors.name}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="c-email"
-                    className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1.5"
-                  >
-                    Your Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="c-email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="sarah@example.com"
-                    className={`w-full px-4 py-2.5 rounded-xl bg-zinc-900 border text-white text-sm placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition-colors ${
-                      errors.email ? "border-red-500" : "border-zinc-800 focus:border-cyan-400"
-                    }`}
-                  />
-                  {errors.email && (
-                    <p className="mt-1 text-xs text-red-400">{errors.email}</p>
-                  )}
-                </div>
-              </div>
-
-              <div>
-                <label
-                  htmlFor="c-subject"
-                  className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1.5"
-                >
-                  Subject *
-                </label>
-                <input
-                  type="text"
-                  id="c-subject"
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  placeholder="Engineering Role / Project Collaboration"
-                  className={`w-full px-4 py-2.5 rounded-xl bg-zinc-900 border text-white text-sm placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition-colors ${
-                    errors.subject ? "border-red-500" : "border-zinc-800 focus:border-cyan-400"
-                  }`}
-                />
-                {errors.subject && (
-                  <p className="mt-1 text-xs text-red-400">{errors.subject}</p>
-                )}
-              </div>
-
-              <div>
-                <label
-                  htmlFor="c-message"
-                  className="block text-[11px] font-mono uppercase tracking-wider text-zinc-400 mb-1.5"
-                >
-                  Message *
-                </label>
-                <textarea
-                  id="c-message"
-                  name="message"
-                  rows={4}
-                  value={formData.message}
-                  onChange={handleChange}
-                  placeholder="Hi Anmol, I'd like to chat about..."
-                  className={`w-full px-4 py-2.5 rounded-xl bg-zinc-900 border text-white text-sm placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition-colors resize-none ${
-                    errors.message ? "border-red-500" : "border-zinc-800 focus:border-cyan-400"
-                  }`}
-                ></textarea>
-                {errors.message && (
-                  <p className="mt-1 text-xs text-red-400">{errors.message}</p>
-                )}
-              </div>
-
-              <button
-                type="submit"
-                onClick={playClick}
-                className="w-full inline-flex items-center justify-center gap-2 py-3 px-6 rounded-xl bg-cyan-500 text-black font-bold hover:bg-cyan-400 hover:shadow-lg hover:shadow-cyan-500/20 transition-all text-sm cursor-pointer"
-              >
-                <FaPaperPlane className="text-xs" />
-                <span>Transmit Packet (Send)</span>
-              </button>
-            </form>
           </div>
         </div>
       </div>

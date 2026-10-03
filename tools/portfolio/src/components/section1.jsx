@@ -1,276 +1,190 @@
-import { useState, useEffect } from "react";
-import MainPic from "../assets/mypic.original.PNG";
-import { TypeAnimation } from "react-type-animation";
+import { useState } from "react";
 import { Link } from "react-scroll";
 import {
+  FaArrowRight,
   FaGithub,
   FaLinkedin,
-  FaInstagram,
-  FaArrowRight,
+  FaEnvelope,
   FaCopy,
   FaCheck,
-  FaTerminal,
-  FaCodeBranch,
+  FaStethoscope,
+  FaTools,
+  FaHome,
 } from "react-icons/fa";
-import { playClick, playSuccess } from "../utils/sound";
-import TiltCard from "./TiltCard";
-import ThreeDOrb from "./ThreeDOrb";
 
-const Section1 = ({ onOpenTerminal, onOpenCommandPalette }) => {
+const projectQuickJumps = [
+  { name: "DiagnostiX", icon: <FaStethoscope className="text-emerald-500" />, to: "projects", offset: -90 },
+  { name: "SwiftNest", icon: <FaTools className="text-orange-500" />, to: "projects", offset: -90 },
+  { name: "CheckIn", icon: <FaHome className="text-indigo-400" />, to: "projects", offset: -90 },
+];
+
+const Section1 = () => {
   const [copied, setCopied] = useState(false);
-  const [currentTime, setCurrentTime] = useState("");
-  const email = "anmolchohaan.ac.2001@gmail.com";
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-      setCurrentTime(
-        now.toLocaleTimeString("en-US", {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          hour12: false,
-        })
-      );
-    };
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  const email = "anmolchauhan.ac.26@gmail.com";
 
   const handleCopyEmail = () => {
-    playSuccess();
     navigator.clipboard.writeText(email);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <section className="relative min-h-screen bg-[#050505] bg-grid-pattern flex flex-col justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Ambient Lighting & 3D Depth Backdrop */}
-      <div className="absolute top-1/4 left-1/3 -translate-x-1/2 w-[550px] h-[350px] bg-cyan-500/10 blur-[140px] pointer-events-none rounded-full animate-pulse-glow" />
-      <div className="absolute top-1/3 right-10 w-[350px] h-[300px] bg-teal-500/5 blur-[120px] pointer-events-none rounded-full" />
+    <section className="relative pt-32 pb-20 sm:pt-40 sm:pb-28 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto overflow-hidden">
+      {/* Soft ambient background glow */}
+      <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[600px] h-[340px] bg-gradient-to-b from-orange-100/50 dark:from-amber-950/20 via-amber-50/40 dark:via-orange-950/10 to-transparent rounded-full blur-3xl pointer-events-none -z-10" />
 
-      {/* Floating 3D Geometric Hologram Accent */}
-      <div className="hidden xl:block absolute right-8 top-28 z-0 opacity-75">
-        <ThreeDOrb size={220} />
-      </div>
-
-      {/* Engineering Telemetry HUD Strip */}
-      <div className="w-full max-w-6xl mx-auto mb-8 relative z-10">
-        <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-2.5 rounded-2xl bg-zinc-950/80 border border-zinc-800/80 backdrop-blur-md text-[11px] font-mono text-zinc-400">
-          <div className="flex items-center gap-2.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span className="text-zinc-200">PORTFOLIO KERNEL: ONLINE</span>
-            <span className="text-zinc-600 hidden sm:inline">|</span>
-            <span className="text-cyan-400 hidden sm:inline">v2.4.0</span>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <div className="hidden md:flex items-center gap-1.5 text-zinc-400">
-              <span className="text-emerald-400">●</span>
-              <span>RTT: 1.2ms</span>
-            </div>
-            <div className="hidden sm:flex items-center gap-1.5 text-zinc-400">
-              <span className="text-zinc-500">SYS TIME:</span>
-              <span className="text-zinc-200">{currentTime || "12:00:00"}</span>
-            </div>
-            <div className="flex items-center gap-1 text-zinc-400">
-              <FaCodeBranch className="text-cyan-400 text-[10px]" />
-              <span>main:7f3b89a</span>
-            </div>
-          </div>
+      <div className="flex flex-col items-start max-w-3xl">
+        {/* Availability Status Badge */}
+        <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white dark:bg-zinc-900 border border-stone-200/90 dark:border-zinc-800 text-stone-700 dark:text-zinc-300 text-xs font-medium mb-8 shadow-xs">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span className="font-semibold text-stone-800 dark:text-zinc-200">Available for Opportunities</span>
+          <span className="text-stone-300 dark:text-zinc-700">•</span>
+          <span className="text-stone-500 dark:text-zinc-400 font-mono text-[11px]">Jalandhar, Punjab, IN</span>
         </div>
-      </div>
 
-      <div className="max-w-6xl w-full mx-auto flex flex-col-reverse lg:flex-row items-center justify-between gap-12 lg:gap-16 z-10">
-        {/* Left Column: Hero Content */}
-        <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-left">
-          {/* Status Badges */}
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-2.5 mb-5">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono tracking-wide">
-              <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-              Available for New Opportunities
-            </span>
-            <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 text-xs font-mono">
-              📍 India • Remote Worldwide
-            </span>
-          </div>
+        {/* Editorial Headline with High-End Typography */}
+        <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-stone-900 dark:text-white tracking-tight leading-[1.08] mb-6">
+          Designing & building{" "}
+          <span className="font-serif italic font-normal text-stone-800 dark:text-zinc-300">
+            enduring
+          </span>{" "}
+          digital products.
+        </h1>
 
-          <p className="text-zinc-400 text-sm sm:text-base font-mono uppercase tracking-widest mb-1">
-            Hi, my name is
-          </p>
+        {/* Articulate Biography / Positioning */}
+        <p className="text-base sm:text-lg text-stone-600 dark:text-zinc-400 leading-relaxed font-normal mb-8 max-w-2xl">
+          Hi, I’m <span className="text-stone-900 dark:text-zinc-100 font-semibold">Anmol Chauhan</span>. I engineer fast, resilient web applications with <span className="text-stone-900 dark:text-zinc-200 font-medium">React</span> and <span className="text-stone-900 dark:text-zinc-200 font-medium">Tailwind CSS</span>, grounded in algorithmic memory discipline and systems architecture from <span className="text-stone-900 dark:text-zinc-200 font-medium">C++</span>.
+        </p>
 
-          {/* Heading - Rock solid, no vertical jumping */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-tight">
-            Anmol<span className="text-cyan-400">.</span>
-          </h1>
+        {/* Action Controls */}
+        <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-8">
+          <Link
+            to="projects"
+            spy={true}
+            smooth={true}
+            duration={500}
+            offset={-90}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-stone-900 dark:bg-white text-white dark:text-zinc-950 text-xs sm:text-sm font-semibold hover:bg-stone-800 dark:hover:bg-zinc-200 transition-all shadow-xs cursor-pointer group"
+          >
+            <span>Explore Selected Work</span>
+            <FaArrowRight className="text-xs group-hover:translate-x-0.5 transition-transform" />
+          </Link>
 
-          {/* Fixed-height, single-line dynamic typing container with grounded, authentic titles */}
-          <div className="h-11 sm:h-14 flex items-center mt-1 overflow-hidden">
-            <TypeAnimation
-              sequence={[
-                "React Developer",
-                1600,
-                "Frontend Developer",
-                1600,
-                "Web Developer",
-                1600,
-                "Problem Solver",
-                1600,
-                "C++ Programmer",
-                1600,
-              ]}
-              wrapper="span"
-              speed={50}
-              repeat={Infinity}
-              className="text-2xl sm:text-4xl lg:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-teal-300 to-cyan-500 font-mono whitespace-nowrap"
-            />
-          </div>
+          <Link
+            to="contact"
+            spy={true}
+            smooth={true}
+            duration={500}
+            offset={-90}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white dark:bg-zinc-900 text-stone-800 dark:text-zinc-200 text-xs sm:text-sm font-semibold border border-stone-300 dark:border-zinc-700 hover:border-stone-400 dark:hover:border-zinc-600 hover:bg-stone-50 dark:hover:bg-zinc-800 transition-all shadow-xs cursor-pointer"
+          >
+            <span>Get in Touch</span>
+          </Link>
 
-          {/* Tagline */}
-          <p className="mt-3 text-base sm:text-lg font-medium text-zinc-300 max-w-xl leading-relaxed">
-            Programmer by Passion <span className="text-cyan-400 mx-1">•</span> Traveller by Choice <span className="text-cyan-400 mx-1">•</span> Hustler by Mindset
-          </p>
+          <button
+            onClick={handleCopyEmail}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-stone-100 dark:bg-zinc-900 text-stone-700 dark:text-zinc-300 text-xs sm:text-sm font-mono border border-stone-200 dark:border-zinc-800 hover:bg-stone-200/70 dark:hover:bg-zinc-800 transition-colors cursor-pointer"
+            title="Copy email address"
+          >
+            {copied ? (
+              <>
+                <FaCheck className="text-emerald-600 dark:text-emerald-400 text-xs" />
+                <span className="text-emerald-700 dark:text-emerald-300">Copied to clipboard</span>
+              </>
+            ) : (
+              <>
+                <FaCopy className="text-stone-400 dark:text-zinc-500 text-xs" />
+                <span>anmolchauhan.ac.26@gmail.com</span>
+              </>
+            )}
+          </button>
+        </div>
 
-          {/* Bio */}
-          <p className="mt-3 text-zinc-400 text-sm sm:text-base max-w-xl leading-relaxed">
-            I build responsive, fast, and user-friendly web applications. Combining modern React with solid C++ problem-solving foundations to create clean digital solutions.
-          </p>
-
-          {/* Action CTAs */}
-          <div className="mt-8 flex flex-wrap items-center justify-center lg:justify-start gap-3">
+        {/* Direct Project Quick Jump Pills */}
+        <div className="flex flex-wrap items-center gap-2 mb-10 w-full">
+          <span className="text-[11px] font-mono uppercase tracking-wider text-stone-400 dark:text-zinc-500 mr-1">
+            Jump to:
+          </span>
+          {projectQuickJumps.map((p, idx) => (
             <Link
-              to="projects"
+              key={idx}
+              to={p.to}
               spy={true}
               smooth={true}
               duration={500}
-              offset={-100}
-              onClick={playClick}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-cyan-500 text-black font-bold rounded-xl transition-all duration-200 hover:bg-cyan-400 hover:shadow-lg hover:shadow-cyan-500/25 cursor-pointer text-sm"
+              offset={p.offset}
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white dark:bg-zinc-900 border border-stone-200 dark:border-zinc-800 hover:border-stone-300 dark:hover:border-zinc-700 text-stone-700 dark:text-zinc-300 hover:text-stone-950 dark:hover:text-white text-xs font-medium transition-colors cursor-pointer shadow-2xs"
             >
-              <span>Explore Work</span>
-              <FaArrowRight className="text-xs" />
+              <span className="text-xs">{p.icon}</span>
+              <span>{p.name}</span>
             </Link>
-
-            {/* Quick Interactive Terminal Trigger */}
-            <button
-              onClick={() => {
-                playClick();
-                if (onOpenTerminal) onOpenTerminal();
-              }}
-              className="inline-flex items-center gap-2 px-5 py-3 bg-zinc-900 border border-zinc-700 text-cyan-400 hover:text-white hover:border-cyan-500/50 hover:bg-zinc-800 rounded-xl transition-all duration-200 cursor-pointer text-sm font-mono"
-              title="Launch Dev Shell"
-            >
-              <FaTerminal className="text-xs" />
-              <span>Launch CLI (~ )</span>
-            </button>
-
-            <button
-              onClick={handleCopyEmail}
-              type="button"
-              className="inline-flex items-center gap-2 px-4 py-3 bg-zinc-900/60 border border-zinc-800 text-zinc-400 hover:text-cyan-400 hover:border-zinc-700 rounded-xl transition-all duration-200 text-sm cursor-pointer"
-              title="Copy email to clipboard"
-            >
-              {copied ? (
-                <>
-                  <FaCheck className="text-emerald-400 text-xs" />
-                  <span className="text-xs text-emerald-400">Copied!</span>
-                </>
-              ) : (
-                <>
-                  <FaCopy className="text-xs" />
-                  <span className="text-xs font-mono">Copy Email</span>
-                </>
-              )}
-            </button>
-          </div>
-
-          {/* Metrics Strip */}
-          <div className="mt-10 pt-8 border-t border-zinc-800/80 w-full max-w-xl grid grid-cols-3 gap-4 text-center lg:text-left">
-            <div>
-              <p className="text-2xl sm:text-3xl font-extrabold text-white font-mono">4+</p>
-              <p className="text-xs text-zinc-400 uppercase tracking-wider mt-0.5">Projects Built</p>
-            </div>
-            <div>
-              <p className="text-2xl sm:text-3xl font-extrabold text-white font-mono">13+</p>
-              <p className="text-xs text-zinc-400 uppercase tracking-wider mt-0.5">Core Tech Stack</p>
-            </div>
-            <div>
-              <p className="text-2xl sm:text-3xl font-extrabold text-cyan-400 font-mono">C++ & DSA</p>
-              <p className="text-xs text-zinc-400 uppercase tracking-wider mt-0.5">Algorithmic Base</p>
-            </div>
-          </div>
-
-          {/* Social Links */}
-          <div className="mt-6 flex items-center justify-center lg:justify-start gap-3.5 text-lg text-zinc-400">
-            <a
-              href="https://github.com/Anmol-26505"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub Profile"
-              onClick={playClick}
-              className="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition-colors"
-            >
-              <FaGithub />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/anmolchauhan84/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn Profile"
-              onClick={playClick}
-              className="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition-colors"
-            >
-              <FaLinkedin />
-            </a>
-            <a
-              href="https://www.instagram.com/youknow_anmol/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram Profile"
-              onClick={playClick}
-              className="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-pink-400 hover:border-zinc-700 transition-colors"
-            >
-              <FaInstagram />
-            </a>
-            <span className="text-xs text-zinc-400 font-mono px-2 py-1 rounded bg-zinc-900 border border-zinc-800">
-              Press <kbd className="text-cyan-400">⌘K</kbd> for actions
-            </span>
-          </div>
+          ))}
         </div>
 
-        {/* Right Column: Seamlessly Blended 3D Portrait */}
-        <div className="flex-shrink-0 relative flex items-center justify-center">
-          {/* Subtle Ambient Backlight Glow */}
-          <div className="absolute w-72 h-72 rounded-full bg-cyan-500/15 blur-3xl scale-95 pointer-events-none animate-pulse-glow" />
-
-          <TiltCard
-            maxTilt={9}
-            perspective={1000}
-            className="relative z-10 overflow-hidden cursor-pointer"
+        {/* Social & Professional Links */}
+        <div className="flex items-center gap-6 text-stone-400 dark:text-zinc-500 pb-12 border-b border-stone-200/80 dark:border-zinc-800 w-full text-xs font-mono">
+          <span className="text-stone-500 dark:text-zinc-400 uppercase tracking-wider text-[11px]">Connect</span>
+          <a
+            href="https://github.com/Anmol-26505"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-stone-600 dark:text-zinc-400 hover:text-stone-950 dark:hover:text-white transition-colors"
           >
-            <div className="relative max-w-[300px] sm:max-w-[360px] lg:max-w-[400px]">
-              <img
-                src={MainPic}
-                alt="Anmol - React Developer"
-                className="w-full h-auto object-cover object-center select-none"
-                style={{
-                  WebkitMaskImage:
-                    "radial-gradient(ellipse 76% 76% at 50% 48%, black 42%, transparent 96%)",
-                  maskImage:
-                    "radial-gradient(ellipse 76% 76% at 50% 48%, black 42%, transparent 96%)",
-                }}
-                loading="eager"
-              />
+            <FaGithub className="text-sm" />
+            <span>GitHub</span>
+          </a>
+          <a
+            href="https://www.linkedin.com/in/anmolchauhan84/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 text-stone-600 dark:text-zinc-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+          >
+            <FaLinkedin className="text-sm" />
+            <span>LinkedIn</span>
+          </a>
+          <a
+            href="mailto:anmolchauhan.ac.26@gmail.com"
+            className="flex items-center gap-1.5 text-stone-600 dark:text-zinc-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+          >
+            <FaEnvelope className="text-sm" />
+            <span>Email</span>
+          </a>
+        </div>
 
-              {/* Multi-layer Seamless Vignette Fades into #050505 */}
-              <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#050505] via-[#050505]/75 to-transparent pointer-events-none" />
-              <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#050505] via-[#050505]/65 to-transparent pointer-events-none" />
-              <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#050505] via-[#050505]/65 to-transparent pointer-events-none" />
-              <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-[#050505] via-[#050505]/65 to-transparent pointer-events-none" />
-            </div>
-          </TiltCard>
+        {/* Minimalist 3-Column Highlights Strip */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 pt-8 w-full">
+          <div className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-stone-200/80 dark:border-zinc-800 shadow-xs hover:border-stone-300 dark:hover:border-zinc-700 transition-colors">
+            <span className="text-2xl sm:text-3xl font-bold text-stone-900 dark:text-white font-mono block mb-1">
+              03
+            </span>
+            <p className="text-xs font-bold text-stone-900 dark:text-zinc-100">Shipped Projects</p>
+            <p className="text-xs text-stone-500 dark:text-zinc-400 mt-1 leading-normal">
+              DiagnostiX, SwiftNest & CheckIn.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-stone-200/80 dark:border-zinc-800 shadow-xs hover:border-stone-300 dark:hover:border-zinc-700 transition-colors">
+            <span className="text-2xl sm:text-3xl font-bold text-orange-600 dark:text-orange-400 font-mono block mb-1">
+              C++ & React
+            </span>
+            <p className="text-xs font-bold text-stone-900 dark:text-zinc-100">Systems & Frontend</p>
+            <p className="text-xs text-stone-500 dark:text-zinc-400 mt-1 leading-normal">
+              Low-level algorithmic discipline meets reactive UI design.
+            </p>
+          </div>
+
+          <div className="p-5 rounded-2xl bg-white dark:bg-zinc-900 border border-stone-200/80 dark:border-zinc-800 shadow-xs hover:border-stone-300 dark:hover:border-zinc-700 transition-colors">
+            <span className="text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400 font-mono block mb-1">
+              100%
+            </span>
+            <p className="text-xs font-bold text-stone-900 dark:text-zinc-100">Commitment to Craft</p>
+            <p className="text-xs text-stone-500 dark:text-zinc-400 mt-1 leading-normal">
+              Clean architecture, accessibility, and high performance.
+            </p>
+          </div>
         </div>
       </div>
     </section>

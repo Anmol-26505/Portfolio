@@ -41,7 +41,6 @@ const MatrixRain = ({ isOpen, onClose }) => {
         const x = i * fontSize;
         const y = drops[i] * fontSize;
 
-        // Bright leading character
         if (Math.random() > 0.85) {
           ctx.fillStyle = "#ffffff";
         } else {
@@ -81,7 +80,6 @@ const MatrixRain = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex flex-col items-center justify-center animate-fade-in">
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
       
-      {/* HUD Header */}
       <div className="absolute top-6 left-6 right-6 flex items-center justify-between pointer-events-auto z-10">
         <div className="px-4 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-500/50 text-cyan-300 font-mono text-xs shadow-lg shadow-cyan-500/20 flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
@@ -99,13 +97,13 @@ const MatrixRain = ({ isOpen, onClose }) => {
 
       <div className="relative z-10 text-center pointer-events-none select-none max-w-lg p-6 rounded-2xl bg-zinc-950/80 border border-cyan-500/30 backdrop-blur-md">
         <h2 className="text-2xl sm:text-3xl font-mono font-bold text-white tracking-wider mb-2">
-          ARCHITECT LEVEL ACCESS
+          ARCHITECT ACCESS
         </h2>
         <p className="text-xs sm:text-sm font-mono text-cyan-400">
           "The question that drove you here: What makes software extraordinary?"
         </p>
         <p className="text-[11px] font-mono text-zinc-400 mt-4">
-          Press [ESC] or click top-right to return to the interface.
+          Press [ESC] or click top-right to return.
         </p>
       </div>
     </div>

@@ -1,100 +1,56 @@
-import { FaGithub, FaLinkedin, FaInstagram, FaArrowUp, FaTerminal } from "react-icons/fa";
-import { Link, animateScroll as scroll } from "react-scroll";
-import { playClick } from "../utils/sound";
+import { animateScroll as scroll } from "react-scroll";
+import { FaGithub, FaLinkedin, FaEnvelope, FaDownload, FaArrowUp } from "react-icons/fa";
 
-const Footer = ({ onOpenTerminal }) => {
+const Footer = () => {
   const scrollToTop = () => {
-    playClick();
-    scroll.scrollToTop({ duration: 600, smooth: true });
+    scroll.scrollToTop({ duration: 500, smooth: "easeInOutQuart" });
   };
 
   return (
-    <footer className="bg-[#030303] border-t border-zinc-900 text-white py-14 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-10 border-b border-zinc-900">
-          {/* Navigation Links */}
-          <div className="flex flex-wrap justify-center gap-6 text-xs sm:text-sm text-zinc-400 font-medium">
-            {["home", "skills", "journey", "projects", "about", "contact"].map((sec) => (
-              <Link
-                key={sec}
-                to={sec}
-                spy={true}
-                smooth={true}
-                duration={500}
-                offset={-100}
-                onClick={playClick}
-                className="cursor-pointer hover:text-cyan-400 capitalize transition-colors"
-              >
-                {sec}
-              </Link>
-            ))}
-          </div>
-
-          {/* Socials & Actions */}
-          <div className="flex items-center gap-3">
-            {onOpenTerminal && (
-              <button
-                onClick={() => {
-                  playClick();
-                  onOpenTerminal();
-                }}
-                className="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-cyan-400 transition-colors text-xs font-mono flex items-center gap-1.5 cursor-pointer"
-                title="Launch CLI Terminal (~)"
-              >
-                <FaTerminal className="text-cyan-400" />
-                <span className="hidden sm:inline">Terminal</span>
-              </button>
-            )}
-
-            <a
-              href="https://github.com/Anmol-26505"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub Profile"
-              onClick={playClick}
-              className="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-colors text-sm"
-            >
-              <FaGithub />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/anmolchauhan84/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn Profile"
-              onClick={playClick}
-              className="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white transition-colors text-sm"
-            >
-              <FaLinkedin />
-            </a>
-            <a
-              href="https://www.instagram.com/youknow_anmol/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram Profile"
-              onClick={playClick}
-              className="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-pink-400 transition-colors text-sm"
-            >
-              <FaInstagram />
-            </a>
-
-            <button
-              onClick={scrollToTop}
-              aria-label="Scroll to top"
-              className="p-2.5 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-cyan-400 hover:border-zinc-700 transition-colors text-xs cursor-pointer ml-1"
-            >
-              <FaArrowUp />
-            </button>
-          </div>
+    <footer className="bg-[#fafaf9] dark:bg-[#09090b] border-t border-stone-200/80 dark:border-zinc-800/80 py-12 px-4 sm:px-6 lg:px-8 text-stone-600 dark:text-zinc-400 transition-colors duration-300">
+      <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+        {/* Links */}
+        <div className="flex items-center gap-5 text-xs font-medium">
+          <a
+            href="https://github.com/Anmol-26505"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-stone-950 dark:hover:text-white transition-colors"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://www.linkedin.com/in/anmolchauhan84/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-orange-600 dark:hover:text-orange-400 transition-colors"
+          >
+            LinkedIn
+          </a>
+          <a
+            href="mailto:anmolchauhan.ac.26@gmail.com"
+            className="hover:text-stone-950 dark:hover:text-white transition-colors"
+          >
+            Email
+          </a>
+          <a
+            href="/Anmol_CV.pdf"
+            download="Anmol_CV.pdf"
+            className="hover:text-stone-950 dark:hover:text-white transition-colors"
+          >
+            Resume
+          </a>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-400 gap-3">
-          <p>© 2026 Anmol. Designed & Engineered for High Performance.</p>
-          <p className="font-mono text-[11px] text-zinc-500 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-            <span>React 19 • Tailwind CSS v4 • C++ Systems Logic • Vite</span>
-          </p>
-        </div>
+        {/* Back to top */}
+        <button
+          onClick={scrollToTop}
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white dark:bg-zinc-900 border border-stone-200 dark:border-zinc-800 text-stone-700 dark:text-zinc-300 hover:text-stone-950 dark:hover:text-white hover:bg-stone-50 dark:hover:bg-zinc-800 text-xs font-medium transition-colors shadow-2xs cursor-pointer"
+          aria-label="Scroll to top of page"
+        >
+          <span>Back to top</span>
+          <FaArrowUp className="text-[10px]" />
+        </button>
       </div>
     </footer>
   );

@@ -18,7 +18,6 @@ const ThreeDOrb = ({ size = 260, className = "" }) => {
     const radius = size * 0.38;
     const phi = (1 + Math.sqrt(5)) / 2;
 
-    // 12 vertices of an icosahedron
     const rawVertices = [
       [-1, phi, 0],
       [1, phi, 0],
@@ -37,9 +36,8 @@ const ThreeDOrb = ({ size = 260, className = "" }) => {
       return [x / len, y / len, z / len];
     });
 
-    // 30 edges connecting icosahedron vertices
     const edges = [];
-    const edgeThreshold = 1.1; // Normalized threshold
+    const edgeThreshold = 1.1;
     for (let i = 0; i < rawVertices.length; i++) {
       for (let j = i + 1; j < rawVertices.length; j++) {
         const dx = rawVertices[i][0] - rawVertices[j][0];
@@ -75,28 +73,23 @@ const ThreeDOrb = ({ size = 260, className = "" }) => {
       rotY += targetSpeedY;
       rotZ += 0.002;
 
-      // 3D Rotation matrices
       const cosX = Math.cos(rotX), sinX = Math.sin(rotX);
       const cosY = Math.cos(rotY), sinY = Math.sin(rotY);
       const cosZ = Math.cos(rotZ), sinZ = Math.sin(rotZ);
 
       const projected = rawVertices.map(([x, y, z]) => {
-        // Rot Y
         let x1 = x * cosY + z * sinY;
         let y1 = y;
         let z1 = -x * sinY + z * cosY;
 
-        // Rot X
         let x2 = x1;
         let y2 = y1 * cosX - z1 * sinX;
         let z2 = y1 * sinX + z1 * cosX;
 
-        // Rot Z
         let x3 = x2 * cosZ - y2 * sinZ;
         let y3 = x2 * sinZ + y2 * cosZ;
         let z3 = z2;
 
-        // Perspective projection
         const fov = 3.2;
         const scale = fov / (fov + z3);
         const px = size / 2 + x3 * radius * scale;
@@ -105,13 +98,10 @@ const ThreeDOrb = ({ size = 260, className = "" }) => {
         return { px, py, z: z3, scale };
       });
 
-      // Draw glowing edges with depth attenuation
       for (const [i, j] of edges) {
         const v1 = projected[i];
         const v2 = projected[j];
         const avgZ = (v1.z + v2.z) / 2;
-
-        // Normalize depth alpha: front is brighter, back is dimmer
         const alpha = Math.max(0.12, Math.min(0.85, (avgZ + 1) * 0.45));
 
         ctx.beginPath();
@@ -122,7 +112,6 @@ const ThreeDOrb = ({ size = 260, className = "" }) => {
         ctx.stroke();
       }
 
-      // Draw vertex nodes
       for (const v of projected) {
         const alpha = Math.max(0.2, (v.z + 1) * 0.5);
         ctx.beginPath();
@@ -147,7 +136,6 @@ const ThreeDOrb = ({ size = 260, className = "" }) => {
 
   return (
     <div className={`relative flex items-center justify-center select-none pointer-events-none ${className}`}>
-      {/* Subtle ambient core glow */}
       <div className="absolute w-24 h-24 rounded-full bg-cyan-500/20 blur-2xl pointer-events-none"></div>
       <canvas
         ref={canvasRef}

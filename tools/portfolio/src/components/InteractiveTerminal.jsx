@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { FaTerminal, FaTimes, FaWindowMinimize, FaExpand, FaCompress } from "react-icons/fa";
+import { FaTerminal, FaTimes, FaExpand, FaCompress } from "react-icons/fa";
 import { playClick, playKeypress, playSuccess, playChirp } from "../utils/sound";
 
 const banner = [
@@ -39,7 +39,6 @@ const InteractiveTerminal = ({ isOpen, onClose, onOpenMatrix }) => {
     const trimmed = cmdStr.trim();
     if (!trimmed) return;
 
-    // Add to history
     setCommandHistory((prev) => [...prev, trimmed]);
     setHistoryIndex(-1);
 
@@ -58,7 +57,6 @@ const InteractiveTerminal = ({ isOpen, onClose, onOpenMatrix }) => {
           "  bio            - Output developer background and core mission",
           "  skills         - List technical arsenal and proficiencies",
           "  projects       - List featured engineering works",
-          "  dsa            - Overview of algorithmic strengths & problem solving",
           "  matrix         - Engage Matrix digital glyph rain mode",
           "  sudo hire      - Unlock executive hiring credentials",
           "  contact        - Display direct communication channels",
@@ -75,9 +73,9 @@ const InteractiveTerminal = ({ isOpen, onClose, onOpenMatrix }) => {
         } else {
           outputLines.push(
             "NAME: Anmol",
-            "ROLE: Frontend & React Engineer | C++ & DSA Specialist",
-            "LOCATION: India • Open to Global & Remote Roles",
-            "MISSION: Crafting hyper-responsive, resilient digital architectures grounded in rigorous computer science principles."
+            "ROLE: Frontend & React Developer | C++ Problem Solver",
+            "LOCATION: Jalandhar, Punjab, India",
+            "MISSION: Crafting fast, accessible web applications and reliable software solutions."
           );
         }
         break;
@@ -85,33 +83,23 @@ const InteractiveTerminal = ({ isOpen, onClose, onOpenMatrix }) => {
       case "skills":
         outputLines.push(
           "TECHNICAL ARSENAL:",
-          "  • Languages:      C++20, Python, JavaScript (ESNext)",
-          "  • Frontend:       React 19, Tailwind CSS v4, HTML5/CSS3, Vite",
-          "  • Architecture:   DSA, OOP Design, Component Systems, State Machines",
-          "  • Tooling:        Git, GitHub, Linux, Bash, Figma, MySQL"
+          "  • Languages:      C++, JavaScript (ES6+), Python, HTML5, CSS3, SQL",
+          "  • Frontend:       React 19, Tailwind CSS, Component Architecture",
+          "  • Tooling:        Git, GitHub, VS Code, Vite, Linux basics, Figma"
         );
         break;
 
       case "projects":
         outputLines.push(
           "FEATURED CREATIONS:",
-          "  [1] DiagnostiX    - Clinical diagnostic companion in C++ with decision tree heuristics",
-          "  [2] SwiftNest     - On-demand service platform built with React 19 & Tailwind",
-          "  [3] CheckIn       - Digital accommodation portal optimized for zero-overhead load times",
-          "  [4] Stay Updated  - Next-gen modular design token system"
-        );
-        break;
-
-      case "dsa":
-        outputLines.push(
-          "ALGORITHMIC FOUNDATIONS:",
-          "  Extensive problem solving in C++ across Trees, Graphs, Dynamic Programming, and Recursion.",
-          "  Focus on amortized time complexities, optimal space allocation, and cache-conscious data layout."
+          "  [1] DiagnostiX    - Clinical diagnostic decision engine in C++",
+          "  [2] SwiftNest     - On-demand household services platform with React & Tailwind",
+          "  [3] CheckIn       - Digital accommodation & meal subscription portal"
         );
         break;
 
       case "matrix":
-        outputLines.push("Breaching mainframe... Engaging Matrix rain protocol.");
+        outputLines.push("Engaging Matrix rain protocol...");
         playSuccess();
         setTimeout(() => {
           if (onOpenMatrix) onOpenMatrix();
@@ -121,9 +109,9 @@ const InteractiveTerminal = ({ isOpen, onClose, onOpenMatrix }) => {
       case "sudo":
         if (arg.toLowerCase() === "hire") {
           outputLines.push(
-            "ACCESS GRANTED // HIGH-PRIORITY RECRUITER CLEARANCE",
-            "Status: Candidate status verified extraordinary.",
-            "Action: Launching direct transmission to anmolchohaan.ac.2001@gmail.com"
+            "ACCESS GRANTED // HIGH-PRIORITY CLEARANCE",
+            "Status: Candidate status verified.",
+            "Action: Redirecting to direct contact..."
           );
           playSuccess();
           setTimeout(() => {
@@ -138,7 +126,7 @@ const InteractiveTerminal = ({ isOpen, onClose, onOpenMatrix }) => {
       case "contact":
         outputLines.push(
           "COMMUNICATION CHANNELS:",
-          "  Email:      anmolchohaan.ac.2001@gmail.com",
+          "  Email:      anmolchauhan.ac.26@gmail.com",
           "  GitHub:     https://github.com/Anmol-26505",
           "  LinkedIn:   https://www.linkedin.com/in/anmolchauhan84/",
           "  Instagram:  https://www.instagram.com/youknow_anmol/"
@@ -147,8 +135,8 @@ const InteractiveTerminal = ({ isOpen, onClose, onOpenMatrix }) => {
 
       case "ping":
         outputLines.push("PING workstation (127.0.0.1): 56 data bytes");
-        outputLines.push("64 bytes from 127.0.0.1: icmp_seq=0 ttl=64 time=1.42 ms");
-        outputLines.push("64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.98 ms");
+        outputLines.push("64 bytes from 127.0.0.1: icmp_seq=0 ttl=64 time=1.24 ms");
+        outputLines.push("64 bytes from 127.0.0.1: icmp_seq=1 ttl=64 time=0.95 ms");
         outputLines.push("--- workstation ping statistics ---");
         outputLines.push("2 packets transmitted, 2 packets received, 0.0% packet loss");
         break;
@@ -209,7 +197,6 @@ const InteractiveTerminal = ({ isOpen, onClose, onOpenMatrix }) => {
           : "bottom-6 right-4 sm:right-6 w-[94vw] sm:w-[580px] h-[440px] rounded-2xl bg-zinc-950/95 border border-zinc-800 shadow-2xl backdrop-blur-xl"
       }`}
     >
-      {/* Terminal Titlebar */}
       <div className="flex items-center justify-between px-4 py-3 bg-zinc-900/90 border-b border-zinc-800 rounded-t-2xl select-none">
         <div className="flex items-center gap-2 text-zinc-300">
           <FaTerminal className="text-cyan-400 text-xs" />
@@ -240,7 +227,6 @@ const InteractiveTerminal = ({ isOpen, onClose, onOpenMatrix }) => {
         </div>
       </div>
 
-      {/* Terminal Scroll View */}
       <div
         className="flex-1 p-4 overflow-y-auto space-y-2 text-zinc-300 selection:bg-cyan-500 selection:text-black cursor-text"
         onClick={() => inputRef.current?.focus()}
@@ -284,7 +270,6 @@ const InteractiveTerminal = ({ isOpen, onClose, onOpenMatrix }) => {
           return null;
         })}
 
-        {/* Active Command Input Line */}
         <div className="flex items-center gap-2 pt-1 text-white">
           <span className="text-cyan-400 font-bold">anmol@workstation:~$</span>
           <input
@@ -302,10 +287,9 @@ const InteractiveTerminal = ({ isOpen, onClose, onOpenMatrix }) => {
         <div ref={terminalEndRef} />
       </div>
 
-      {/* Terminal Footer Bar */}
       <div className="px-4 py-2 bg-zinc-900/60 border-t border-zinc-900 rounded-b-2xl flex items-center justify-between text-[11px] text-zinc-400 select-none">
         <span>Press [Tab] for autocomplete • [↑/↓] for history</span>
-        <span className="text-emerald-400">● Interactive CLI Online</span>
+        <span className="text-emerald-400">● CLI Online</span>
       </div>
     </div>
   );

@@ -3,9 +3,9 @@ import { useState, useRef } from "react";
 const TiltCard = ({
   children,
   className = "",
-  maxTilt = 12,
+  maxTilt = 10,
   perspective = 1000,
-  scale = 1.02,
+  scale = 1.015,
   glare = true,
 }) => {
   const cardRef = useRef(null);
@@ -39,7 +39,7 @@ const TiltCard = ({
 
     if (glare) {
       setGlareStyle({
-        opacity: 0.18,
+        opacity: 0.15,
         left: `${x}px`,
         top: `${y}px`,
         transform: "translate(-50%, -50%)",
@@ -69,7 +69,7 @@ const TiltCard = ({
       {children}
       {glare && (
         <div
-          className="pointer-events-none absolute w-56 h-56 rounded-full bg-cyan-400 blur-2xl transition-opacity duration-300"
+          className="pointer-events-none absolute w-48 h-48 rounded-full bg-cyan-400 blur-2xl transition-opacity duration-300"
           style={glareStyle}
         />
       )}

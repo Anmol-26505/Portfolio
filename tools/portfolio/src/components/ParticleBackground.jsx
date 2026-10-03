@@ -22,7 +22,6 @@ const ParticleBackground = () => {
 
     window.addEventListener("resize", handleResize);
 
-    // Particle pool
     const particleCount = Math.min(Math.floor((width * height) / 18000), 75);
     const particles = [];
     const mouse = { x: -1000, y: -1000, radius: 120 };
@@ -48,7 +47,6 @@ const ParticleBackground = () => {
         if (this.y < 0) this.y = height;
         else if (this.y > height) this.y = 0;
 
-        // Mouse interaction
         const dx = mouse.x - this.x;
         const dy = mouse.y - this.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -89,7 +87,6 @@ const ParticleBackground = () => {
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Draw connection lines
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -108,7 +105,6 @@ const ParticleBackground = () => {
         }
       }
 
-      // Update and draw particles
       for (let i = 0; i < particles.length; i++) {
         particles[i].update();
         particles[i].draw();

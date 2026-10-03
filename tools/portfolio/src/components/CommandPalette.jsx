@@ -9,7 +9,6 @@ import {
   FaCode,
   FaHome,
   FaLayerGroup,
-  FaUserTie,
   FaEnvelope,
   FaRocket,
 } from "react-icons/fa";
@@ -21,7 +20,6 @@ const CommandPalette = ({
   onClose,
   onOpenTerminal,
   onOpenMatrix,
-  onSelectProject,
 }) => {
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -45,7 +43,7 @@ const CommandPalette = ({
     },
     {
       id: "nav-journey",
-      title: "View Career Progression & Timeline",
+      title: "View Career Progression & Milestones",
       category: "Navigation",
       icon: <FaLayerGroup />,
       handler: () => scroller.scrollTo("journey", { smooth: true, duration: 500, offset: -100 }),
@@ -58,8 +56,15 @@ const CommandPalette = ({
       handler: () => scroller.scrollTo("projects", { smooth: true, duration: 500, offset: -100 }),
     },
     {
+      id: "nav-about",
+      title: "Behind the Developer Philosophy",
+      category: "Navigation",
+      icon: <FaLayerGroup />,
+      handler: () => scroller.scrollTo("about", { smooth: true, duration: 500, offset: -100 }),
+    },
+    {
       id: "nav-contact",
-      title: "Send Transmission / Contact",
+      title: "Send Direct Transmission / Contact",
       category: "Navigation",
       icon: <FaEnvelope />,
       handler: () => scroller.scrollTo("contact", { smooth: true, duration: 500, offset: -100 }),
@@ -102,7 +107,7 @@ const CommandPalette = ({
       category: "Actions",
       icon: <FaCopy />,
       handler: () => {
-        navigator.clipboard.writeText("anmolchohaan.ac.2001@gmail.com");
+        navigator.clipboard.writeText("anmolchauhan.ac.26@gmail.com");
         playSuccess();
       },
     },
@@ -169,7 +174,6 @@ const CommandPalette = ({
         onClick={(e) => e.stopPropagation()}
         onKeyDown={handleKeyDown}
       >
-        {/* Search Input Bar */}
         <div className="flex items-center px-4 py-3.5 border-b border-zinc-800/80 bg-zinc-900/50">
           <FaSearch className="text-zinc-500 text-sm mr-3" />
           <input
@@ -188,7 +192,6 @@ const CommandPalette = ({
           </span>
         </div>
 
-        {/* Results List */}
         <div className="max-h-80 overflow-y-auto p-2 space-y-1 text-xs">
           {filtered.length === 0 ? (
             <div className="text-center py-8 text-zinc-500">
@@ -226,13 +229,12 @@ const CommandPalette = ({
           )}
         </div>
 
-        {/* Footer info strip */}
         <div className="flex items-center justify-between px-4 py-2.5 bg-zinc-900/40 border-t border-zinc-900 text-[11px] text-zinc-400">
           <div className="flex items-center gap-3">
             <span>[↑↓] Navigate</span>
             <span>[↵] Execute</span>
           </div>
-          <span className="text-cyan-400 font-semibold">Command Palette v2</span>
+          <span className="text-cyan-400 font-semibold">Command Palette</span>
         </div>
       </div>
     </div>

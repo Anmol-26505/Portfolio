@@ -1,111 +1,86 @@
 import { useState, useEffect } from "react";
+import { Element } from "react-scroll";
 import Navbar from "./components/Navbar";
 import Section1 from "./components/section1";
+import Section3 from "./components/Section3";
 import Section2 from "./components/Section2";
 import Timeline from "./components/Timeline";
-import Section3 from "./components/Section3";
 import Section4 from "./components/Section4";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import ParticleBackground from "./components/ParticleBackground";
-import CommandPalette from "./components/CommandPalette";
-import InteractiveTerminal from "./components/InteractiveTerminal";
-import MatrixRain from "./components/MatrixRain";
-import Preloader from "./components/Preloader";
-import { Element } from "react-scroll";
+import BookPreloader from "./components/BookPreloader";
 
 const App = () => {
-  const [loading, setLoading] = useState(true);
-  const [terminalOpen, setTerminalOpen] = useState(false);
-  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
-  const [matrixOpen, setMatrixOpen] = useState(false);
+  const [showApp, setShowApp] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== "undefined") {
+      const savedTheme = localStorage.getItem("portfolio-theme");
+      if (savedTheme) return savedTheme;
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        return "dark";
+      }
+    }
+    return "light";
+  });
 
-  // Global Keyboard Shortcuts (Cmd+K / Ctrl+K and backtick ~)
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      // Cmd+K or Ctrl+K for Command Palette
-      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
-        e.preventDefault();
-        setCommandPaletteOpen((prev) => !prev);
-      }
-      // Backtick ` or ~ to toggle Interactive Terminal (only if not currently typing in an input/textarea)
-      else if (
-        (e.key === "`" || e.key === "~") &&
-        !["INPUT", "TEXTAREA"].includes(document.activeElement?.tagName)
-      ) {
-        e.preventDefault();
-        setTerminalOpen((prev) => !prev);
-      }
-    };
+    const root = document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+    localStorage.setItem("portfolio-theme", theme);
+  }, [theme]);
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
 
   return (
-    <div className="min-h-screen bg-[#050505] text-[#f4f4f5] selection:bg-cyan-500 selection:text-black relative">
-      {/* High-Impact Opening Preloader Sequence */}
-      {loading && <Preloader onComplete={() => setLoading(false)} />}
+    <>
+      {!showApp && <BookPreloader onComplete={() => setShowApp(true)} />}
+      <div className={`min-h-screen bg-[#fafaf9] dark:bg-[#09090b] text-[#18181b] dark:text-[#f4f4f5] selection:bg-orange-100 dark:selection:bg-amber-950 selection:text-orange-950 dark:selection:text-amber-200 font-sans transition-colors duration-300 ${!showApp ? 'h-screen overflow-hidden' : ''}`}>
+      {/* Floating Pill Navigation with Day & Night Switch */}
+      <Navbar theme={theme} toggleTheme={toggleTheme} />
 
-      {/* Dynamic Reactive Particle Canvas */}
-      <ParticleBackground />
-
-      {/* Futuristic Floating Command Modals */}
-      <CommandPalette
-        isOpen={commandPaletteOpen}
-        onClose={() => setCommandPaletteOpen(false)}
-        onOpenTerminal={() => setTerminalOpen(true)}
-        onOpenMatrix={() => setMatrixOpen(true)}
-      />
-
-      <InteractiveTerminal
-        isOpen={terminalOpen}
-        onClose={() => setTerminalOpen(false)}
-        onOpenMatrix={() => setMatrixOpen(true)}
-      />
-
-      <MatrixRain
-        isOpen={matrixOpen}
-        onClose={() => setMatrixOpen(false)}
-      />
-
-      {/* Top Navbar Navigation & HUD Controls */}
-      <Navbar
-        onOpenTerminal={() => setTerminalOpen(true)}
-        onOpenCommandPalette={() => setCommandPaletteOpen(true)}
-      />
-
-      <main className="relative z-10">
+      {/* Main Content Flow */}
+      <main>
+        {/* Hero Section */}
         <Element name="home">
-          <Section1
-            onOpenTerminal={() => setTerminalOpen(true)}
-            onOpenCommandPalette={() => setCommandPaletteOpen(true)}
-          />
+          <Section1 />
         </Element>
 
-        <Element name="skills">
-          <Section2 />
-        </Element>
-
-        <Element name="journey">
-          <Timeline />
-        </Element>
-
+        {/* Selected Works Gallery */}
         <Element name="projects">
           <Section3 />
         </Element>
 
+        {/* Technical Capabilities & Stack */}
+        <Element name="skills">
+          <Section2 />
+        </Element>
+
+        {/* Engineering Journey */}
+        <Element name="journey">
+          <Timeline />
+        </Element>
+
+        {/* About & Philosophy */}
         <Element name="about">
           <Section4 />
         </Element>
 
+        {/* Contact Transmission */}
         <Element name="contact">
-          <Contact onOpenTerminal={() => setTerminalOpen(true)} />
+          <Contact />
         </Element>
       </main>
 
-      <Footer onOpenTerminal={() => setTerminalOpen(true)} />
+      {/* Refined Minimalist Footer */}
+      <Footer />
     </div>
+    </>
   );
 };
 
